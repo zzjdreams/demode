@@ -1,0 +1,817 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>PSK</title><meta name="generator" content="MATLAB 9.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2019-07-19"><meta name="DC.source" content="PSK.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><pre class="codeinput"><span class="keyword">function</span> y=PSK(t)
+clc;clear <span class="string">all</span>;
+
+t=-10:0.01:10;
+y=0;
+st=[1,0,0,1,0,1];
+<span class="keyword">for</span> n=1:length(st)
+    y=y+st(n).*(t&gt; (n-1) &amp; t&lt;n);
+<span class="keyword">end</span>
+
+subplot(5,1,1);
+plot(t,y);
+title(<span class="string">'&#36755;&#20837;&#20449;&#28304;s&#65288;t&#65289;'</span>);
+ylabel(<span class="string">'s(t)'</span>);
+xlabel(<span class="string">'t(s)'</span>);
+axis([0,6,-1,1]);
+
+ys=0;
+sta=-1*st+1;
+<span class="keyword">for</span> n=1:length(sta)
+    ys=ys+sta(n).*(t&gt; (n-1) &amp; t&lt;n);
+<span class="keyword">end</span>
+
+subplot(5,1,2);
+plot(t,ys);
+title(<span class="string">'s&#65288;t&#65289;&#32763;&#36716;'</span>);
+ylabel(<span class="string">'s(t)'</span>);
+xlabel(<span class="string">'t(s)'</span>);
+axis([0,length(st),-2,2]);
+
+
+yc1=cos(30*t);
+subplot(5,1,3);
+plot(t,yc1);
+title(<span class="string">'cos(30*t)'</span>);
+axis([0,length(st),-2,2]);
+
+
+
+yc2=-yc1;
+subplot(5,1,4);
+plot(t,yc2);
+title(<span class="string">'cos(20*t)'</span>);
+axis([0,length(st),-2,2]);
+
+
+ycom=0;
+ycom=y.*yc1+ys.*yc2;
+subplot(5,1,5);
+plot(t,ycom);
+title(<span class="string">'&#36755;&#20986;&#20449;&#21495;'</span>);
+axis([0,length(st),-2,2]);
+
+
+box;
+<span class="comment">% figure('Name','2FSK');</span>
+
+figure(1);
+set(gcf,<span class="string">'Name'</span>,<span class="string">'~~~~2FSK&#27874;&#24418;&#23637;&#31034;'</span>)
+<span class="comment">% figure('NumberTitle', 'off', 'Name', '2FSK&#27874;&#24418;&#23637;&#31034;');</span>
+set(gcf,<span class="string">'position'</span>,[300 50 900 700]);
+<span class="keyword">end</span>
+</pre><pre class="codeoutput">
+ans =
+
+  1 &#33267; 13 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  14 &#33267; 26 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  27 &#33267; 39 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  40 &#33267; 52 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  53 &#33267; 65 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  66 &#33267; 78 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  79 &#33267; 91 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  92 &#33267; 104 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  105 &#33267; 117 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  118 &#33267; 130 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  131 &#33267; 143 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  144 &#33267; 156 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  157 &#33267; 169 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  170 &#33267; 182 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  183 &#33267; 195 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  196 &#33267; 208 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  209 &#33267; 221 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  222 &#33267; 234 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  235 &#33267; 247 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  248 &#33267; 260 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  261 &#33267; 273 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  274 &#33267; 286 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  287 &#33267; 299 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  300 &#33267; 312 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  313 &#33267; 325 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  326 &#33267; 338 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  339 &#33267; 351 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  352 &#33267; 364 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  365 &#33267; 377 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  378 &#33267; 390 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  391 &#33267; 403 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  404 &#33267; 416 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  417 &#33267; 429 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  430 &#33267; 442 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  443 &#33267; 455 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  456 &#33267; 468 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  469 &#33267; 481 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  482 &#33267; 494 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  495 &#33267; 507 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  508 &#33267; 520 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  521 &#33267; 533 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  534 &#33267; 546 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  547 &#33267; 559 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  560 &#33267; 572 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  573 &#33267; 585 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  586 &#33267; 598 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  599 &#33267; 611 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  612 &#33267; 624 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  625 &#33267; 637 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  638 &#33267; 650 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  651 &#33267; 663 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  664 &#33267; 676 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  677 &#33267; 689 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  690 &#33267; 702 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  703 &#33267; 715 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  716 &#33267; 728 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  729 &#33267; 741 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  742 &#33267; 754 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  755 &#33267; 767 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  768 &#33267; 780 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  781 &#33267; 793 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  794 &#33267; 806 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  807 &#33267; 819 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  820 &#33267; 832 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  833 &#33267; 845 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  846 &#33267; 858 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  859 &#33267; 871 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  872 &#33267; 884 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  885 &#33267; 897 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  898 &#33267; 910 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  911 &#33267; 923 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  924 &#33267; 936 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  937 &#33267; 949 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  950 &#33267; 962 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  963 &#33267; 975 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  976 &#33267; 988 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  989 &#33267; 1001 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  1002 &#33267; 1014 &#21015;
+
+     1     1     1     1     1     1     1     1     1     1     1     1     1
+
+  1015 &#33267; 1027 &#21015;
+
+     1     1     1     1     1     1     1     1     1     1     1     1     1
+
+  1028 &#33267; 1040 &#21015;
+
+     1     1     1     1     1     1     1     1     1     1     1     1     1
+
+  1041 &#33267; 1053 &#21015;
+
+     1     1     1     1     1     1     1     1     1     1     1     1     1
+
+  1054 &#33267; 1066 &#21015;
+
+     1     1     1     1     1     1     1     1     1     1     1     1     1
+
+  1067 &#33267; 1079 &#21015;
+
+     1     1     1     1     1     1     1     1     1     1     1     1     1
+
+  1080 &#33267; 1092 &#21015;
+
+     1     1     1     1     1     1     1     1     1     1     1     1     1
+
+  1093 &#33267; 1105 &#21015;
+
+     1     1     1     1     1     1     1     1     0     0     0     0     0
+
+  1106 &#33267; 1118 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  1119 &#33267; 1131 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  1132 &#33267; 1144 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  1145 &#33267; 1157 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  1158 &#33267; 1170 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  1171 &#33267; 1183 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  1184 &#33267; 1196 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  1197 &#33267; 1209 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  1210 &#33267; 1222 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  1223 &#33267; 1235 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  1236 &#33267; 1248 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  1249 &#33267; 1261 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  1262 &#33267; 1274 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  1275 &#33267; 1287 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  1288 &#33267; 1300 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  1301 &#33267; 1313 &#21015;
+
+     0     1     1     1     1     1     1     1     1     1     1     1     1
+
+  1314 &#33267; 1326 &#21015;
+
+     1     1     1     1     1     1     1     1     1     1     1     1     1
+
+  1327 &#33267; 1339 &#21015;
+
+     1     1     1     1     1     1     1     1     1     1     1     1     1
+
+  1340 &#33267; 1352 &#21015;
+
+     1     1     1     1     1     1     1     1     1     1     1     1     1
+
+  1353 &#33267; 1365 &#21015;
+
+     1     1     1     1     1     1     1     1     1     1     1     1     1
+
+  1366 &#33267; 1378 &#21015;
+
+     1     1     1     1     1     1     1     1     1     1     1     1     1
+
+  1379 &#33267; 1391 &#21015;
+
+     1     1     1     1     1     1     1     1     1     1     1     1     1
+
+  1392 &#33267; 1404 &#21015;
+
+     1     1     1     1     1     1     1     1     1     0     0     0     0
+
+  1405 &#33267; 1417 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  1418 &#33267; 1430 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  1431 &#33267; 1443 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  1444 &#33267; 1456 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  1457 &#33267; 1469 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  1470 &#33267; 1482 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  1483 &#33267; 1495 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  1496 &#33267; 1508 &#21015;
+
+     0     0     0     0     0     0     1     1     1     1     1     1     1
+
+  1509 &#33267; 1521 &#21015;
+
+     1     1     1     1     1     1     1     1     1     1     1     1     1
+
+  1522 &#33267; 1534 &#21015;
+
+     1     1     1     1     1     1     1     1     1     1     1     1     1
+
+  1535 &#33267; 1547 &#21015;
+
+     1     1     1     1     1     1     1     1     1     1     1     1     1
+
+  1548 &#33267; 1560 &#21015;
+
+     1     1     1     1     1     1     1     1     1     1     1     1     1
+
+  1561 &#33267; 1573 &#21015;
+
+     1     1     1     1     1     1     1     1     1     1     1     1     1
+
+  1574 &#33267; 1586 &#21015;
+
+     1     1     1     1     1     1     1     1     1     1     1     1     1
+
+  1587 &#33267; 1599 &#21015;
+
+     1     1     1     1     1     1     1     1     1     1     1     1     1
+
+  1600 &#33267; 1612 &#21015;
+
+     1     0     0     0     0     0     0     0     0     0     0     0     0
+
+  1613 &#33267; 1625 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  1626 &#33267; 1638 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  1639 &#33267; 1651 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  1652 &#33267; 1664 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  1665 &#33267; 1677 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  1678 &#33267; 1690 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  1691 &#33267; 1703 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  1704 &#33267; 1716 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  1717 &#33267; 1729 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  1730 &#33267; 1742 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  1743 &#33267; 1755 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  1756 &#33267; 1768 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  1769 &#33267; 1781 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  1782 &#33267; 1794 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  1795 &#33267; 1807 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  1808 &#33267; 1820 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  1821 &#33267; 1833 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  1834 &#33267; 1846 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  1847 &#33267; 1859 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  1860 &#33267; 1872 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  1873 &#33267; 1885 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  1886 &#33267; 1898 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  1899 &#33267; 1911 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  1912 &#33267; 1924 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  1925 &#33267; 1937 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  1938 &#33267; 1950 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  1951 &#33267; 1963 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  1964 &#33267; 1976 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  1977 &#33267; 1989 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0     0
+
+  1990 &#33267; 2001 &#21015;
+
+     0     0     0     0     0     0     0     0     0     0     0     0
+
+</pre><img vspace="5" hspace="5" src="PSK_01.png" alt=""> <img vspace="5" hspace="5" src="PSK_02.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2018a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+function y=PSK(t)
+clc;clear all;
+
+t=-10:0.01:10;
+y=0;
+st=[1,0,0,1,0,1];
+for n=1:length(st)
+    y=y+st(n).*(t> (n-1) & t<n);
+end
+
+subplot(5,1,1);
+plot(t,y);
+title('输入信源s（t）');
+ylabel('s(t)');
+xlabel('t(s)');
+axis([0,6,-1,1]);
+
+ys=0;
+sta=-1*st+1;
+for n=1:length(sta)
+    ys=ys+sta(n).*(t> (n-1) & t<n);
+end
+
+subplot(5,1,2);
+plot(t,ys);
+title('s（t）翻转');
+ylabel('s(t)');
+xlabel('t(s)');
+axis([0,length(st),-2,2]);
+
+
+yc1=cos(30*t);
+subplot(5,1,3);
+plot(t,yc1);
+title('cos(30*t)');
+axis([0,length(st),-2,2]);
+
+
+
+yc2=-yc1;
+subplot(5,1,4);
+plot(t,yc2);
+title('cos(20*t)');
+axis([0,length(st),-2,2]);
+
+
+ycom=0;
+ycom=y.*yc1+ys.*yc2;
+subplot(5,1,5);
+plot(t,ycom);
+title('输出信号');
+axis([0,length(st),-2,2]);
+
+
+box;
+% figure('Name','2FSK');
+
+figure(1);
+set(gcf,'Name','~~~~2FSK波形展示')
+% figure('NumberTitle', 'off', 'Name', '2FSK波形展示');
+set(gcf,'position',[300 50 900 700]);
+end
+
+
+##### SOURCE END #####
+--></body></html>

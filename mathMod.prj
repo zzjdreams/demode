@@ -1,0 +1,114 @@
+<deployment-project plugin="plugin.apptool" plugin-version="1.0">
+  <configuration build-checksum="4057195841" file="D:\360手机相册备份\毕设\MATLAB\mathMod.prj" location="D:\360手机相册备份\毕设\MATLAB" name="mathMod" target="target.mlapps" target-name="App 打包">
+    <param.appname>mathMod</param.appname>
+    <param.authnamewatermark>数字信号调制</param.authnamewatermark>
+    <param.email>zzjdreams@163.com</param.email>
+    <param.company />
+    <param.icon />
+    <param.icons />
+    <param.summary />
+    <param.description />
+    <param.screenshot />
+    <param.version>1.0</param.version>
+    <param.products.name />
+    <param.products.id />
+    <param.products.version />
+    <param.platforms />
+    <param.output>D:\360手机相册备份\毕设\MATLAB</param.output>
+    <param.guid>2a830eb8-afba-4156-a1cd-84882aa61395</param.guid>
+    <unset>
+      <param.company />
+      <param.icon />
+      <param.icons />
+      <param.summary />
+      <param.description />
+      <param.screenshot />
+      <param.version />
+      <param.products.name />
+      <param.products.id />
+      <param.products.version />
+      <param.platforms />
+      <param.output />
+    </unset>
+    <fileset.main>
+      <file>${PROJECT_ROOT}\COMdemod.m</file>
+    </fileset.main>
+    <fileset.depfun>
+      <file>${PROJECT_ROOT}\COMdemod.fig</file>
+      <file>${PROJECT_ROOT}\readw.m</file>
+    </fileset.depfun>
+    <fileset.resources>
+      <file>${PROJECT_ROOT}\page1.txt</file>
+      <file>${PROJECT_ROOT}\page2.txt</file>
+      <file>${PROJECT_ROOT}\page3.txt</file>
+      <file>${PROJECT_ROOT}\page4.txt</file>
+      <file>${PROJECT_ROOT}\page5.txt</file>
+      <file>${PROJECT_ROOT}\page6.txt</file>
+      <file>${PROJECT_ROOT}\page7.txt</file>
+      <file>${PROJECT_ROOT}\page8.txt</file>
+      <file>${PROJECT_ROOT}\page9.txt</file>
+      <file>${PROJECT_ROOT}\s(t)</file>
+    </fileset.resources>
+    <fileset.package />
+    <build-deliverables>
+      <file location="D:\360手机相册备份\毕设" name="MATLAB" optional="false">D:\360手机相册备份\毕设\MATLAB</file>
+    </build-deliverables>
+    <workflow />
+    <matlab>
+      <root>D:\MATLAB</root>
+      <toolboxes>
+        <toolbox name="fixedpoint" />
+        <toolbox name="matlabcoder" />
+        <toolbox name="matlabhdlcoder" />
+        <toolbox name="embeddedcoder" />
+        <toolbox name="gpucoder" />
+        <toolbox name="polyspacebugfinder" />
+      </toolboxes>
+      <toolbox>
+        <fixedpoint>
+          <enabled>true</enabled>
+        </fixedpoint>
+      </toolbox>
+      <toolbox>
+        <matlabcoder>
+          <enabled>true</enabled>
+        </matlabcoder>
+      </toolbox>
+      <toolbox>
+        <matlabhdlcoder>
+          <enabled>true</enabled>
+        </matlabhdlcoder>
+      </toolbox>
+      <toolbox>
+        <embeddedcoder>
+          <enabled>true</enabled>
+        </embeddedcoder>
+      </toolbox>
+      <toolbox>
+        <gpucoder>
+          <enabled>true</enabled>
+        </gpucoder>
+      </toolbox>
+      <toolbox>
+        <polyspacebugfinder>
+          <enabled>true</enabled>
+        </polyspacebugfinder>
+      </toolbox>
+    </matlab>
+    <platform>
+      <unix>false</unix>
+      <mac>false</mac>
+      <windows>true</windows>
+      <win2k>false</win2k>
+      <winxp>false</winxp>
+      <vista>false</vista>
+      <linux>false</linux>
+      <solaris>false</solaris>
+      <osver>10.0</osver>
+      <os32>false</os32>
+      <os64>true</os64>
+      <arch>win64</arch>
+      <matlab>true</matlab>
+    </platform>
+  </configuration>
+</deployment-project>
